@@ -1,6 +1,6 @@
 let markerVisible = { A: false, B: false, C: false };
 
-AFRAME.registerComponent('registerevents', {
+AFRAME.registerComponent('registerevent', {
 	init: function () {
 		var marker = this.el;
 		marker.addEventListener('markerFound', function() {
