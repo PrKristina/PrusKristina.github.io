@@ -27,8 +27,8 @@ window.addEventListener("DOMContentLoaded", () => {
       'old_car_-_vaz_2107.glb',
       // called when the resource is loaded
       function ( gltf ) {
-         gltf.scene.scale.set(0.1, 0.1, 0.1);
-         gltf.scene.position.z=-500;
+         gltf.scene.scale.set(0.01, 0.1, 0.1);
+         gltf.scene.position.z=-100;
          gltf.scene.rotation.y=+Math.PI/4; 
          scene.add( gltf.scene );
           //console.log(gtfl);
