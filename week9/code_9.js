@@ -28,7 +28,8 @@ window.addEventListener("DOMContentLoaded", () => {
       // called when the resource is loaded
       function ( gltf ) {
          //gltf.scene.scale.set(0.01, 0.01, 0.01)
-         gltf.scene.position.z=-1
+         gltf.scene.position.z=-3
+         gltf.scene.position.z=15
          gltf.scene.rotation.y=+Math.PI/4; 
          scene.add( gltf.scene );
           //console.log(gtfl);
