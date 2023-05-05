@@ -29,7 +29,7 @@ window.addEventListener("DOMContentLoaded", () => {
       function ( gltf ) {
          //gltf.scene.scale.set(0.01, 0.01, 0.01)
          gltf.scene.position.z=-10
-         gltf.scene.position.z=20
+         gltf.scene.position.x=20
          gltf.scene.rotation.y=+Math.PI/4; 
          scene.add( gltf.scene );
           //console.log(gtfl);
