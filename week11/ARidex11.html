@@ -1,41 +1,17 @@
-<!DOCTYPE html>
 <html>
-  <head>
-    <title>AR.js A-Frame Location-based</title>
-    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-    <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js'></script>
-    <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'></script>
-  </head>
-  <body>
-    <a-scene vr-mode-ui="enabled: false" arjs="sourceType: webcam; videoTexture: true" renderer="antialias: true; alpha: true">
-      <a-camera gps-camera rotation-reader></a-camera>
-      <a-entity id="markers"></a-entity>
-    </a-scene>
-
-    <script>
-      // Получаем текущее местоположение пользователя
-      navigator.geolocation.getCurrentPosition(function(position) {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-
-        // Создаем маркеры для каждой точки
-        const markers = document.querySelector('#markers');
-        const marker1 = document.createElement('a-box');
-        marker1.setAttribute('position', { x: 0, y: 0, z: -10 });
-        marker1.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
-        marker1.setAttribute('color', 'red');
-        marker1.setAttribute('scale', '10 10 10');
-        markers.appendChild(marker1);
-
-        const marker2 = document.createElement('a-box');
-        marker2.setAttribute('position', { x: -10, y: 0, z: -20 });
-        marker2.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
-        marker2.setAttribute('color', 'green');
-        marker2.setAttribute('scale', '10 10 10');
-        markers.appendChild(marker2);
-      });
-    </script>
-  </body>
+	<head>
+		<title>AR.js A-Frame Location-based</title>
+		<script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+		<script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js'></script>
+		<script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'></script>
+	</head>
+	<body>
+		<a-scene vr-mode-ui="enabled: false" arjs="sourceType: webcam; videoTexture: true" renderer="antialias: true; alpha: true">
+		    <a-camera gps-camera="gpsMinDistance: 50"></a-camera>
+		    <a-cube color="red" gps-entity-place="latitude: 48.2979097; longitude: 24.4529030" scale="10 10 10"></a-cube>
+		    <a-cube color="green" gps-entity-place="latitude: 48.2979097; longitude: 24.4569030" scale="10 10 10"></a-cube>
+		</a-scene>
+	</body>
 </html>
 
 
