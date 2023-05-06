@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>AR.js A-Frame Location-based</title>
@@ -8,15 +8,10 @@
 	</head>
 	<body>
 		<a-scene vr-mode-ui="enabled: false" arjs="sourceType: webcam; videoTexture: true" renderer="antialias: true; alpha: true">
-			<a-camera gps-camera="latitude: 51.5074; longitude: 0.1278; altitude: 100"></a-camera>
+			<a-camera gps-camera="enableHighAccuracy: true;"></a-camera>
 			
-			<a-marker gps-entity-place="latitude: 51.5074; longitude: 0.1278;">
-				<a-box position='0 0.5 0' material='color: red;'></a-box>
-			</a-marker>
-			
-			<a-marker gps-entity-place="latitude: 51.5074; longitude: 0.1278; latitude-shift: -0.0005; longitude-shift: -0.0005;">
-				<a-box position='-1 0.5 0' material='color: blue;'></a-box>
-			</a-marker>
+			<a-marker gps-entity-place-gltf src="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Duck/glTF/Duck.gltf"></a-marker>
+			<a-marker gps-entity-place-gltf src="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/CesiumMan/glTF/CesiumMan.gltf"></a-marker>
 			
 			<a-entity>
 				<a-plane height="10" width="10" rotation="-90 0 0" material='color: grey;'></a-plane>
@@ -24,16 +19,21 @@
 		</a-scene>
 		
 		<script>
-			navigator.geolocation.getCurrentPosition(function(position) {
+			navigator.geolocation.watchPosition(function(position) {
 				var latitude = position.coords.latitude;
 				var longitude = position.coords.longitude;
-				var altitude = 100; // задаем высоту над уровнем моря в метрах
 
 				var camera = document.querySelector("a-camera");
-				camera.setAttribute("gps-camera", "latitude: " + latitude + "; longitude: " + longitude + "; altitude: " + altitude);
+				camera.setAttribute("gps-camera", "latitude: " + latitude + "; longitude: " + longitude);
+
+				var markers = document.querySelectorAll("a-marker");
+				markers.forEach(function(marker) {
+					marker.setAttribute("gps-entity-place-gltf", "latitude: " + latitude + "; longitude: " + longitude);
+				});
 			});
 		</script>
 	</body>
 </html>
+
 
 
