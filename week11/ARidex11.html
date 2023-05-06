@@ -8,14 +8,18 @@
 	</head>
 	<body>
 		<a-scene vr-mode-ui="enabled: false" arjs="sourceType: webcam; videoTexture: true" renderer="antialias: true; alpha: true">
-			<a-camera gps-camera="latitude: 48.29774; longitude: 25,45329; altitude: 100"></a-camera>
+			<a-camera gps-camera="latitude: 51.5074; longitude: 0.1278; altitude: 100"></a-camera>
 			
-			<a-marker gps-entity-place="latitude: 48,29774; longitude: 25,45329;">
-				<a-box position='0 0.5 0' material='color: red;'></a-box>
+			<a-marker gps-entity-place="latitude: 51.5074; longitude: 0.1278;">
+				<a-entity gltf-model="https://arjs-cors-proxy.herokuapp.com/https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Duck/glTF/Duck.gltf" 
+				scale="0.02 0.02 0.02"
+				position='0 0.5 0' ></a-entity>
 			</a-marker>
 			
-			<a-marker gps-entity-place="latitude: 48,29774; longitude: 24,45329; latitude-shift: 0.0005; longitude-shift: 0.0005;">
-				<a-box position='1 0.5 0' material='color: blue;' scale="0.5 0.5 0.5"></a-box>
+			<a-marker gps-entity-place="latitude: 51.5074; longitude: 0.1278; latitude-shift: 0.0005; longitude-shift: 0.0005;">
+				<a-entity gltf-model="https://arjs-cors-proxy.herokuapp.com/https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Avocado/glTF/Avocado.gltf" 
+				scale="0.02 0.02 0.02"
+				position='0 0.5 0' ></a-entity>
 			</a-marker>
 			
 			
