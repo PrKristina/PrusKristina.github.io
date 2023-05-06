@@ -1,21 +1,41 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <title>AR.js A-Frame Location-based</title>
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_control@latest"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js'></script>
+    <script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'></script>
   </head>
   <body>
-    <a-scene vr-mode-ui="enabled: false" arjs="sourceType: webcam">
+    <a-scene vr-mode-ui="enabled: false" arjs="sourceType: webcam; videoTexture: true" renderer="antialias: true; alpha: true">
       <a-camera gps-camera rotation-reader></a-camera>
-      <a-marker-anchor latitude="48.2979097" longitude="24.4529030">
-        <a-box color="red" scale="10 10 10"></a-box>
-      </a-marker-anchor>
-      <a-marker-anchor latitude="48.2979097" longitude="24.4529030">
-        <a-box color="green" scale="10 10 10"></a-box>
-      </a-marker-anchor>
+      <a-entity id="markers"></a-entity>
     </a-scene>
+
+    <script>
+      // Получаем текущее местоположение пользователя
+      navigator.geolocation.getCurrentPosition(function(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+
+        // Создаем маркеры для каждой точки
+        const markers = document.querySelector('#markers');
+        const marker1 = document.createElement('a-box');
+        marker1.setAttribute('position', { x: 0, y: 0, z: -10 });
+        marker1.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+        marker1.setAttribute('color', 'red');
+        marker1.setAttribute('scale', '10 10 10');
+        markers.appendChild(marker1);
+
+        const marker2 = document.createElement('a-box');
+        marker2.setAttribute('position', { x: -10, y: 0, z: -20 });
+        marker2.setAttribute('gps-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+        marker2.setAttribute('color', 'green');
+        marker2.setAttribute('scale', '10 10 10');
+        markers.appendChild(marker2);
+      });
+    </script>
   </body>
 </html>
+
 
