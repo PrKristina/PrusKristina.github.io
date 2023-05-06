@@ -8,15 +8,15 @@
 	</head>
 	<body>
 		<a-scene vr-mode-ui="enabled: false" arjs="sourceType: webcam; videoTexture: true" renderer="antialias: true; alpha: true">
-			<a-camera gps-camera="latitude: 51.5074; longitude: 0.1278; altitude: 100"></a-camera>
+			<a-camera gps-camera></a-camera>
 			
-			<a-marker gps-entity-place="latitude: 51.5074; longitude: 0.1278;">
+			<a-marker gps-entity-place>
 				<a-entity gltf-model="https://arjs-cors-proxy.herokuapp.com/https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Duck/glTF/Duck.gltf" 
 				scale="0.02 0.02 0.02"
 				position='0 0.5 0' ></a-entity>
 			</a-marker>
 			
-			<a-marker gps-entity-place="latitude: 51.5074; longitude: 0.1278; latitude-shift: 0.0005; longitude-shift: 0.0005;">
+			<a-marker gps-entity-place>
 				<a-entity gltf-model="https://arjs-cors-proxy.herokuapp.com/https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Avocado/glTF/Avocado.gltf" 
 				scale="0.02 0.02 0.02"
 				position='0 0.5 0' ></a-entity>
@@ -29,7 +29,7 @@
 			navigator.geolocation.getCurrentPosition(function(position) {
 				var latitude = position.coords.latitude;
 				var longitude = position.coords.longitude;
-				var altitude = 100; // задаем высоту над уровнем моря в метрах
+				var altitude = position.coords.altitude || 0;
 
 				var camera = document.querySelector("a-camera");
 				camera.setAttribute("gps-camera", "latitude: " + latitude + "; longitude: " + longitude + "; altitude: " + altitude);
