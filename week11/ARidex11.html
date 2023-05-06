@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html>
 	<head>
 		<title>AR.js A-Frame Location-based</title>
@@ -8,32 +8,13 @@
 	</head>
 	<body>
 		<a-scene vr-mode-ui="enabled: false" arjs="sourceType: webcam; videoTexture: true" renderer="antialias: true; alpha: true">
-			<a-camera gps-camera="enableHighAccuracy: true;"></a-camera>
-			
-			<a-marker gps-entity-place-gltf src="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Duck/glTF/Duck.gltf"></a-marker>
-			<a-marker gps-entity-place-gltf src="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/CesiumMan/glTF/CesiumMan.gltf"></a-marker>
-			
-			<a-entity>
-				<a-plane height="10" width="10" rotation="-90 0 0" material='color: grey;'></a-plane>
-			</a-entity>
+		    <a-camera gps-new-camera="gpsMinDistance: 50"></a-camera>
+		    <a-box color="red" gps-new-entity-place="latitude: 47.99890912068979; longitude: 33.48252859034396" scale="10 10 10"></a-box><!-- преса -->
+		    <a-box color="green" gps-new-entity-place="latitude: 47.998916748529965; longitude: 33.48300065915225" scale="10 10 10"></a-box><!-- край будівлі з аптекою -->
+		    <a-sphere color="blue" gps-new-entity-place="latitude: 47.99885079010975; longitude: 33.48234217680564" scale="5 5 5"></a-sphere><!-- усередині будівлі 1 -->
+		    <a-sphere color="yellow" gps-new-entity-place="latitude: 47.998851687503794; longitude: 33.48229993201171" scale="5 5 5"></a-sphere><!-- усередині будівлі 2 -->
 		</a-scene>
-		
-		<script>
-			navigator.geolocation.watchPosition(function(position) {
-				var latitude = position.coords.latitude;
-				var longitude = position.coords.longitude;
-
-				var camera = document.querySelector("a-camera");
-				camera.setAttribute("gps-camera", "latitude: " + latitude + "; longitude: " + longitude);
-
-				var markers = document.querySelectorAll("a-marker");
-				markers.forEach(function(marker) {
-					marker.setAttribute("gps-entity-place-gltf", "latitude: " + latitude + "; longitude: " + longitude);
-				});
-			});
-		</script>
 	</body>
 </html>
-
 
 
