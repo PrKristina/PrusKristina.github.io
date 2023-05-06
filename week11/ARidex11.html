@@ -1,26 +1,33 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html>
 	<head>
+		<title>AR.js A-Frame Location-based</title>
 		<script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
 		<script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js'></script>
 		<script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'></script>
-		<script>
-		    window.addEventListener("load", function() {
-		        navigator.geolocation.getCurrentPosition(function(position) {
-		            var latitude = position.coords.latitude;
-		            var longitude = position.coords.longitude;
-		            var altitude = 100; // задаем высоту над уровнем моря в метрах
-		            
-		            var camera = document.querySelector("a-camera");
-		            camera.setAttribute("gps-camera", "latitude: " + latitude + "; longitude: " + longitude + "; altitude: " + altitude);
-		        });
-		    });
-		</script>
 	</head>
 	<body>
 		<a-scene vr-mode-ui="enabled: false" arjs="sourceType: webcam; videoTexture: true" renderer="antialias: true; alpha: true">
-			<a-camera></a-camera>
+			<a-camera gps-camera="latitude: 51.5074; longitude: 0.1278; altitude: 100"></a-camera>
+			<a-marker gps-entity-place="latitude: 51.5074; longitude: 0.1278;">
+				<a-box position='0 0.5 0' material='color: red;'></a-box>
+			</a-marker>
+			<a-entity>
+				<a-plane height="10" width="10" rotation="-90 0 0" material='color: grey;'></a-plane>
+			</a-entity>
 		</a-scene>
+		
+		<script>
+			navigator.geolocation.getCurrentPosition(function(position) {
+				var latitude = position.coords.latitude;
+				var longitude = position.coords.longitude;
+				var altitude = 100; // задаем высоту над уровнем моря в метрах
+
+				var camera = document.querySelector("a-camera");
+				camera.setAttribute("gps-camera", "latitude: " + latitude + "; longitude: " + longitude + "; altitude: " + altitude);
+			});
+		</script>
 	</body>
 </html>
+
 
