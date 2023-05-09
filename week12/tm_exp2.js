@@ -51,41 +51,56 @@
 				labelContainer.innerHTML = "Бачу праву руку<br><br>";
 
 			{
-            const fingers = hands[0].landmarks.filter((lm, index) => index % 4 != 0);
+            const keypoints = hands[0].keypoints;
 
-            // Calculate finger lengths
-            const fingerLengths = fingers.map((finger, index) => {
-                const prevJoint = finger[index];
-                const nextJoint = finger[index + 1];
-                const length = Math.sqrt(
-                    (nextJoint[0] - prevJoint[0]) ** 2 +
-                    (nextJoint[1] - prevJoint[1]) ** 2 +
-                    (nextJoint[2] - prevJoint[2]) ** 2
-                );
-                return length;
-            });
+// calculate the length of each finger based on the distance between MCP and TIP keypoints
+const fingerLengths = [
+    euclideanDistance(keypoints[0].position, keypoints[3].position), // thumb
+    euclideanDistance(keypoints[5].position, keypoints[8].position), // index finger
+    euclideanDistance(keypoints[9].position, keypoints[12].position), // middle finger
+    euclideanDistance(keypoints[13].position, keypoints[16].position), // ring finger
+    euclideanDistance(keypoints[17].position, keypoints[20].position), // pinky finger
+];
 
-            // Calculate angles between fingers
-            const angles = [angleBetweenFingers(fingerLengths[0], fingerLengths[1], fingerLengths[2]),
-                angleBetweenFingers(fingerLengths[1], fingerLengths[2], fingerLengths[3]),
-                angleBetweenFingers(fingerLengths[2], fingerLengths[3], fingerLengths[4]),
-                angleBetweenFingers(fingerLengths[0], fingerLengths[1], fingerLengths[3]),
-                angleBetweenFingers(fingerLengths[1], fingerLengths[3], fingerLengths[4])
-            ];
+// calculate the angle between each finger using the dot product formula
+const fingerAngles = [
+    angleBetweenVectors(getVector(keypoints[2].position, keypoints[3].position), getVector(keypoints[4].position, keypoints[3].position)), // thumb
+    angleBetweenVectors(getVector(keypoints[6].position, keypoints[8].position), getVector(keypoints[10].position, keypoints[8].position)), // index finger
+    angleBetweenVectors(getVector(keypoints[10].position, keypoints[12].position), getVector(keypoints[14].position, keypoints[12].position)), // middle finger
+    angleBetweenVectors(getVector(keypoints[14].position, keypoints[16].position), getVector(keypoints[18].position, keypoints[16].position)), // ring finger
+    angleBetweenVectors(getVector(keypoints[18].position, keypoints[20].position), getVector(keypoints[19].position, keypoints[20].position)), // pinky finger
+];
 
-            // Display angles
-            labelContainer.innerHTML = `Кути між пальцями: ${angles[0].toFixed(2)} градусів, ${angles[1].toFixed(2)} градусів, ${angles[2].toFixed(2)} градусів, ${angles[3].toFixed(2)} градусів, ${angles[4].toFixed(2)} градусів`;
-        }
-    }
-
-    frameCount++;
-    window.requestAnimationFrame(loop);
+// print the finger lengths and angles to the label container
+for (let i = 0; i < fingerLengths.length; i++) {
+    labelContainer.innerHTML += `Finger ${i + 1} length: ${fingerLengths[i].toFixed(2)}<br>`;
+}
+for (let i = 0; i < fingerAngles.length; i++) {
+    labelContainer.innerHTML += `Angle between fingers ${i + 1} and ${i + 2}: ${(fingerAngles[i] * 180 / Math.PI).toFixed(2)} degrees<br>`;
 }
 
-function angleBetweenFingers(a, b, c) {
-    const cosAngle = (a ** 2 + b ** 2 - c ** 2) / (2 * a * b);
-    return Math.acos(cosAngle) * 180 / Math.PI;
+// helper function to calculate the Euclidean distance between two points
+function euclideanDistance(point1, point2) {
+    return Math.sqrt(Math.pow(point2.x - point1.x, 2) + Math.pow(point2.y - point1.y, 2));
 }
+
+// helper function to calculate the vector between two points
+function getVector(point1, point2) {
+    return {
+        x: point2.x - point1.x,
+        y: point2.y - point1.y,
+    };
+}
+
+// helper function to calculate the angle between two vectors using the dot product formula
+function angleBetweenVectors(vector1, vector2) {
+    const dotProduct = vector1.x * vector2.x + vector1.y * vector2.y;
+    const magnitudeProduct = Math.sqrt(vector1.x ** 2 + vector1.y ** 2) * Math.sqrt(vector2.x ** 2 + vector2.y ** 2);
+    return Math.acos(dotProduct / magnitudeProduct);
+}
+	frameCount++;
+}
+				
 
 
 
