@@ -18,7 +18,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       const light = new THREE.HemisphereLight( 0xffffbb, 0xcccccc, 1 );
 	scene.add( light );
 
-      const texture = new THREE.TextureLoader().load('images-removebg-preview.png');
+      const texture = new THREE.TextureLoader().load('mask-aurora-cure-for-me-3d-model-fbx-removebg-preview.png');
 
       const faceMesh = mindarThree.addFaceMesh();
       faceMesh.material.map = texture;
