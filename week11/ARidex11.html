@@ -1,17 +1,53 @@
+
 <html>
-	<head>
-		<title>AR.js A-Frame Location-based</title>
-		<script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-		<script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-threex-location-only.js'></script>
-		<script type='text/javascript' src='https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js'></script>
-	</head>
-	<body>
-		<a-scene vr-mode-ui="enabled: false" arjs="sourceType: webcam; videoTexture: true" renderer="antialias: true; alpha: true">
-		    <a-camera gps-camera="gpsMinDistance: 50; maxDistance: 2"></a-camera>
-		    <a-cube color="red" gps-entity-place="latitude: 48.2979097; longitude: 24.4529030" scale="10 10 10" position="2 0 -50"></a-cube>
-		    <a-cube color="green" gps-entity-place="latitude: 48.2979097; longitude: 24.4569030" scale="10 10 10" position="-2 0 -50"></a-cube>
-		</a-scene>
-	</body>
+  <head>
+    <meta charset="UTF-8">
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@argonjs/argon@4.4.1/dist/argon.min.js"></script>
+  </head>
+  <body>
+    <a-scene arjs="debugUIEnabled: false;" embedded vr-mode-ui="enabled: false">
+      <a-assets>
+        <a-asset-item id="model" src="https://cdn.glitch.com/522b7c0c-381f-40c1-a0d2-77456ca9d1c7%2Fmodel.glb?v=1611058829128"></a-asset-item>
+      </a-assets>
+      <a-marker preset="hiro">
+        <a-box color="yellow" scale="5 5 5"></a-box>
+      </a-marker>
+      <a-marker-camera>
+        <a-entity gps-camera="gpsMinDistance: 50;"></a-entity>
+      </a-marker-camera>
+    </a-scene>
+
+    <script>
+      function addCube(lat, long, color) {
+        const scene = document.querySelector('a-scene');
+        const marker = document.createElement('a-marker');
+        marker.setAttribute('type', 'pattern');
+        marker.setAttribute('url', 'https://cdn.glitch.com/522b7c0c-381f-40c1-a0d2-77456ca9d1c7%2Fpattern-marker.patt?v=1611058829639');
+        const cube = document.createElement('a-box');
+        cube.setAttribute('position', '0 0 0');
+        cube.setAttribute('color', color);
+        cube.setAttribute('scale', '5 5 5');
+        marker.appendChild(cube);
+        scene.appendChild(marker);
+        marker.setAttribute('gps-entity-place', `latitude: ${lat}; longitude: ${long}`);
+      }
+      navigator.geolocation.getCurrentPosition(function(position) {
+        const lat = position.coords.latitude;
+        const long = position.coords.longitude;
+        // Додавання куба зліва від користувача
+        const leftLat = lat - 0.0001; // обчислюємо ліву широту
+        addCube(leftLat, long, 'yellow');
+        // Додавання куба справа від користувача
+        const rightLat = lat + 0.0001; // обчислюємо праву широту
+        addCube(rightLat, long, 'green');
+      }, function(error) {
+        console.error(error);
+      });
+    </script>
+  </body>
+</html>
+
 </html>
 
 
