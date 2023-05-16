@@ -12,10 +12,10 @@
         // Функція, яка додає новий куб з відповідними координатами
         function addCube(lat, long, color) {
             const scene = document.querySelector('a-scene');
-            const cube = document.createElement('a-box');
+            const cube = document.createElement('a-sphere');
             cube.setAttribute('gps-entity-place', `latitude: ${lat}; longitude: ${long}`);
             cube.setAttribute('color', color);
-            cube.setAttribute('scale', '5 5 5');
+            cube.setAttribute('scale', '3 3 3');
             scene.appendChild(cube);
           }
 // Отримання геолокації користувача
@@ -24,10 +24,10 @@ navigator.geolocation.getCurrentPosition(function(position) {
     const long = position.coords.longitude;
     // Додавання куба зліва від користувача
     const leftLat = lat - 0.0001; // обчислюємо ліву широту
-    addCube(leftLat, long, 'yellow');
+    addCube(leftLat, long, 'blue');
     // Додавання куба справа від користувача
     const rightLat = lat + 0.0001; // обчислюємо праву широту
-    addCube(rightLat, long, 'green');
+    addCube(rightLat, long, 'pink');
 }, function(error) {
     console.error(error);
 });
