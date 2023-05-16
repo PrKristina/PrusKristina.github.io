@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Домашнє завдання на тиждень 11</title>
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 </head>
@@ -9,24 +10,28 @@
         <a-camera gps-camera="gpsMinDistance: 50"></a-camera>
     </a-scene>
     <script>
-        function addCube(lat, long, color) {
+        // Функція, яка додає нову сферу з відповідними координатами
+        function addSphere(lat, long, color) {
             const scene = document.querySelector('a-scene');
-            const cube = document.createElement('a-sphere');
+            const sphere = document.createElement('a-sphere');
             sphere.setAttribute('gps-entity-place', `latitude: ${lat}; longitude: ${long}`);
             sphere.setAttribute('color', color);
-            sphere.setAttribute('scale', '3 3 3');
-            scene.appendChild(cube);
-          }
-navigator.geolocation.getCurrentPosition(function(position) {
-    const lat = position.coords.latitude;
-    const long = position.coords.longitude;
-    const leftLat = lat - 0.0001; 
-    addSphere(leftLat, long, 'blue');
-    const rightLat = lat + 0.0001; 
-    addSphere(rightLat, long, 'pink');
-}, function(error) {
-    console.error(error);
-});
-</script>
+            sphere.setAttribute('radius', '2.5');
+            scene.appendChild(sphere);
+        }
+        // Отримання геолокації користувача
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const lat = position.coords.latitude;
+            const long = position.coords.longitude;
+            // Додавання сфери зліва від користувача
+            const leftLat = lat - 0.0001; // обчислюємо ліву широту
+            addSphere(leftLat, long, 'blue');
+            // Додавання сфери справа від кориистувача
+            const rightLat = lat + 0.0001; // обчислюємо праву широту
+            addSphere(rightLat, long, 'pink');
+        }, function(error) {
+            console.error(error);
+        });
+    </script>
 </body>
 </html>
