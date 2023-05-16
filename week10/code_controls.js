@@ -114,7 +114,7 @@ function init()
 
 	const modelloader = new GLTFLoader();
 
-	modelloader.load( 'pokemon_sudowoodo_-_tree.glb', function ( gltf ) {
+	modelloader.load( 'uploads_files_3641433_Octopus_toy.glb', function ( gltf ) {
 		scene.add(gltf.scene);
 		gltf.scene.position.set(-5,2,0);
 		gltf.scene.scale.set(2,2,2);
