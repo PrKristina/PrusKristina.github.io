@@ -9,24 +9,20 @@
         <a-camera gps-camera="gpsMinDistance: 50"></a-camera>
     </a-scene>
     <script>
-        // Функція, яка додає новий куб з відповідними координатами
         function addCube(lat, long, color) {
             const scene = document.querySelector('a-scene');
             const cube = document.createElement('a-sphere');
-            cube.setAttribute('gps-entity-place', `latitude: ${lat}; longitude: ${long}`);
-            cube.setAttribute('color', color);
-            cube.setAttribute('scale', '3 3 3');
+            sphere.setAttribute('gps-entity-place', `latitude: ${lat}; longitude: ${long}`);
+            sphere.setAttribute('color', color);
+            sphere.setAttribute('scale', '3 3 3');
             scene.appendChild(cube);
           }
-// Отримання геолокації користувача
 navigator.geolocation.getCurrentPosition(function(position) {
     const lat = position.coords.latitude;
     const long = position.coords.longitude;
-    // Додавання куба зліва від користувача
-    const leftLat = lat - 0.0001; // обчислюємо ліву широту
+    const leftLat = lat - 0.0001; 
     addSphere(leftLat, long, 'blue');
-    // Додавання куба справа від користувача
-    const rightLat = lat + 0.0001; // обчислюємо праву широту
+    const rightLat = lat + 0.0001; 
     addSphere(rightLat, long, 'pink');
 }, function(error) {
     console.error(error);
