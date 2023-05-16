@@ -116,8 +116,8 @@ function init()
 
 	modelloader.load( 'uploads_files_3641433_Octopus_toy.glb', function ( gltf ) {
 		scene.add(gltf.scene);
-		gltf.scene.position.set(-5,2,0);
-		gltf.scene.scale.set(2,2,2);
+		gltf.scene.position.set(-8,2,0);
+		gltf.scene.scale.set(1,1,1);
 	}, function ( xhr ) {
 		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
 	}, function ( error ) {
