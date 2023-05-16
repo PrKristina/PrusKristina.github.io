@@ -24,10 +24,10 @@ navigator.geolocation.getCurrentPosition(function(position) {
     const long = position.coords.longitude;
     // Додавання куба зліва від користувача
     const leftLat = lat - 0.0001; // обчислюємо ліву широту
-    addCube(leftLat, long, 'blue');
+    addSphere(leftLat, long, 'blue');
     // Додавання куба справа від користувача
     const rightLat = lat + 0.0001; // обчислюємо праву широту
-    addCube(rightLat, long, 'pink');
+    addSphere(rightLat, long, 'pink');
 }, function(error) {
     console.error(error);
 });
