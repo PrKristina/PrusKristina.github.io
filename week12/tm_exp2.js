@@ -38,11 +38,10 @@
   async function predict() {
   if (frameCount % skipCount == 0) {
     const hands = await detector.estimateHands(webcam.canvas);
-    //console.log(hands);
 
-    if (hands.length == 0)
+    if (hands.length == 0) {
       labelContainer.innerHTML = "Не бачу рук";
-    else {
+    } else {
       if (hands[0].handedness == "Left")
         labelContainer.innerHTML = "Бачу ліву руку<br><br>";
       else
@@ -60,10 +59,12 @@
       // Calculate angles between fingers
       const angles = [];
       for (let i = 0; i < fingerLengths.length - 1; i++) {
-        const v1 = [          hands[0].annotations.indexFinger[i][3][0] - hands[0].annotations.indexFinger[i][0][0],
+        const v1 = [
+          hands[0].annotations.indexFinger[i][3][0] - hands[0].annotations.indexFinger[i][0][0],
           hands[0].annotations.indexFinger[i][3][1] - hands[0].annotations.indexFinger[i][0][1]
         ];
-        const v2 = [          hands[0].annotations.indexFinger[i + 1][3][0] - hands[0].annotations.indexFinger[i + 1][0][0],
+        const v2 = [
+          hands[0].annotations.indexFinger[i + 1][3][0] - hands[0].annotations.indexFinger[i + 1][0][0],
           hands[0].annotations.indexFinger[i + 1][3][1] - hands[0].annotations.indexFinger[i + 1][0][1]
         ];
         const dot = v1[0] * v2[0] + v1[1] * v2[1];
@@ -73,6 +74,7 @@
         angles.push(angle * 180 / Math.PI);
       }
     }
+
     frameCount++;
   }
 }
