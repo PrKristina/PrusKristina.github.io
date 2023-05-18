@@ -22,7 +22,7 @@
 
         // append elements to the DOM
         document.getElementById("webcam-container").appendChild(webcam.canvas);
-        labelContainer = document.getElementById("label-container");
+        labelContainer = document.getElementById("result-container");
     }
 
     async function loop() {
@@ -68,7 +68,7 @@
 				const opposite = Math.hypot(points[1].x - points[2].x, points[1].y - points[2].y);
 				const angle = Math.atan2(opposite, adjacent);
 				const degrees = angle * 180 / Math.PI;
-				labelContainer.innerHTML += "Кут між пальцями " + finger + ": " + degrees.toFixed(2) + " градусів<br>";
+				labelContainer.innerHTML += "<div>Кут між пальцями " + finger + ": " + degrees.toFixed(2) + " градусів</div>";
 			}
 		}
 	}
